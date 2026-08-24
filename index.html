@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>INP No Event Listener Demo</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+      }
+
+      #overlay-toggle {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .toggle-label {
+        display: inline-block;
+        margin: 2rem;
+        padding: 0.75rem 1.25rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      #overlay-toggle:focus-visible ~ .toggle-label {
+        outline: 2px solid #0066cc;
+        outline-offset: 2px;
+      }
+
+      .overlay {
+        display: none; /* hidden by default */
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 10;
+      }
+
+      #overlay-toggle:checked ~ .overlay {
+        display: block;
+      }
+
+      .overlay-panel {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 280px;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .overlay-close {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="checkbox" id="overlay-toggle" />
+    <label class="toggle-label" for="overlay-toggle">Show overlay</label>
+
+    <div class="overlay">
+      <div class="overlay-panel">
+        <h2>Overlay</h2>
+        <p>Toggled entirely with CSS &mdash; no JavaScript.</p>
+        <label class="overlay-close" for="overlay-toggle">Close</label>
+      </div>
+    </div>
+    <script>
+      // Add a synthetic main-thread delay
+      function throttleCPU(ms) {
+        const start = performance.now();
+        while (performance.now() - start < ms) {
+          // Blocks the main thread
+        }
+      }
+
+      const intervalId = setInterval(() => {
+        throttleCPU(2000);
+      }, 3000);
+
+      const observer = new PerformanceObserver((entryList) => {
+        for (const entry of entryList.getEntries()) {
+          // Only log entries that represent user interactions
+          if (!entry.interactionId) continue;
+
+          console.log(
+            `[INP Interaction] Duration: ${entry.duration}ms | Type: ${entry.name}`,
+          );
+        }
+      });
+
+      observer.observe({
+        type: "event",
+        durationThreshold: 16,
+        buffered: true,
+      });
+    </script>
+  </body>
+</html>
