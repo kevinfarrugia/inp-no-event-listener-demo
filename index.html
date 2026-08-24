@@ -84,8 +84,18 @@
     </div>
 
     <div>
-      <p>The following button does nothing but it is interactive (it has an onclick handler):</p>
-      <input class="toggle-label" type="button" value="Test" onclick="console.log(performance.now())" />
+      <p>
+        The following button is interactive (it has an event handler and uses
+        JavaScript to toggle the overlay):
+      </p>
+      <input id="myButton" class="toggle-label" type="button" value="Test" />
+      <div id="myOverlay" class="overlay">
+        <div class="overlay-panel">
+          <h2>Overlay</h2>
+          <p>Toggled with JavaScript.</p>
+          <label id="closeButton" class="overlay-close">Close</label>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -100,7 +110,8 @@
       const intervalId = setInterval(() => {
         throttleCPU(2000);
       }, 3000);
-
+    </script>
+    <script>
       const observer = new PerformanceObserver((entryList) => {
         for (const entry of entryList.getEntries()) {
           // Only log entries that represent user interactions
@@ -116,6 +127,17 @@
         type: "event",
         durationThreshold: 16,
         buffered: true,
+      });
+    </script>
+    <script>
+      document.getElementById("myButton").addEventListener("click", () => {
+        const overlay = document.getElementById("myOverlay");
+        overlay.style.display = "block";
+      });
+
+      document.getElementById("closeButton").addEventListener("click", () => {
+        const overlay = document.getElementById("myOverlay");
+        overlay.style.display = "none";
       });
     </script>
   </body>
