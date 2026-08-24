@@ -6,7 +6,6 @@
     <title>INP No Event Listener Demo</title>
     <style>
       body {
-        margin: 0;
         font-family: system-ui, sans-serif;
       }
 
@@ -68,16 +67,27 @@
     </style>
   </head>
   <body>
-    <input type="checkbox" id="overlay-toggle" />
-    <label class="toggle-label" for="overlay-toggle">Show overlay</label>
-
-    <div class="overlay">
-      <div class="overlay-panel">
-        <h2>Overlay</h2>
-        <p>Toggled entirely with CSS &mdash; no JavaScript.</p>
-        <label class="overlay-close" for="overlay-toggle">Close</label>
+    <div>
+      <p>
+        The following button is non-interactive (it does not have an event
+        handler and uses a combination of a label and checkbox):
+      </p>
+      <input type="checkbox" id="overlay-toggle" />
+      <label class="toggle-label" for="overlay-toggle">Show overlay</label>
+      <div class="overlay">
+        <div class="overlay-panel">
+          <h2>Overlay</h2>
+          <p>Toggled entirely with CSS &mdash; no JavaScript.</p>
+          <label class="overlay-close" for="overlay-toggle">Close</label>
+        </div>
       </div>
     </div>
+
+    <div>
+      <p>The following button does nothing but it is interactive (it has an onclick handler):</p>
+      <input class="toggle-label" type="button" value="Test" onclick="" />
+    </div>
+
     <script>
       // Add a synthetic main-thread delay
       function throttleCPU(ms) {
