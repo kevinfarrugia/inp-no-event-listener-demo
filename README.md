@@ -4,7 +4,7 @@ A simple demo that registers a long interaction time for an interaction that doe
 
 ## Instructions
 
-- Open index.html in the browser.
+- Open [index.html](https://kevinfarrugia.github.io/inp-no-event-listener-demo/) in the browser.
 - Clicking on the _Show Overlay_ label will trigger a full screen overlay.
 
 <img width="1268" height="569" alt="Screenshot of the Chrome DevTools Performance Panel showing two long interactions" src="https://github.com/user-attachments/assets/b973b298-01b1-4ed7-af1c-e530300bd88f" />
